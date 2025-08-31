@@ -1,0 +1,65 @@
+Nombre del Programa: Números Primos.
+Alumna: Solís Torres Karen Rocío
+2025.
+
+El programa corresponde al ejercicio 2 de la Práctica 1. 
+"Considera la siguiente fórmula 2n + 1, se requiere calcular e imprimir el valor como resultado de evaluar la fórmula desde que n es igual a 1 hasta x, donde x es cualquier número entero excepto 0 y 1, además, en caso de que x sea negativo tiene que hacerse la operación sobre su valor absoluto, por último, en caso de que el resultado de la evaluación de la fórmula sea un número primo también se tiene que imprimir que lo es."
+
+
+-------------------Código Fuente---------------------------------
+
+import java.util.Scanner;
+
+public class NumerosPrimos {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        SumaN formula = new SumaN(2, 1);
+        Primo primo = new Primo();
+
+
+        System.out.println("\n~~~ Cálculo bajo la función: 2n + 1 ~~~");
+        System.out.println("*Escriba \"salir\" para cerrar el programa*\n");
+
+        while (true) {
+            System.out.print("Ingresa un número: ");
+            String entrada = scanner.nextLine().trim();
+
+        if (entrada.equalsIgnoreCase("salir")) {
+            break;
+        }
+
+        try {
+            int x = Integer.parseInt(entrada);
+
+/*Evitar que sea 1, 0, inválido o negativo*/
+
+        if (x == 0 || x == 1) {
+        	System.out.println("Número inválido. Debe ser distinto de 0 o 1.");
+        continue;
+        }
+
+        x = Math.abs(x);
+
+/*Resultados*/
+
+        int resultado = formula.evalua(x);
+        System.out.println("Resultado de 2*" + x + " +1 =" + resultado);
+
+        if (primo.esPrimo(resultado)) {
+            System.out.println("¡Es Primo!");
+        } else {
+            System.out.println(" No es primo.");
+        }
+
+            } catch (NumberFormatException e) {
+                System.out.println("¡Inválido!. Ingresa un número válido o escribe la palabra \"salir\" para cerrar el programa.");
+            }
+        }
+
+    scanner.close();
+}
+
+}
+
+

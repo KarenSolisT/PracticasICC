@@ -1,0 +1,101 @@
+Nombre del Programa: Piedra, Papel o Tijeras.
+Alumna: Solís Torres Karen Rocío
+2025.
+
+El programa corresponde al ejercicio 1 de la Práctica 1. 
+"Se requiere un programa que permita jugar piedra, papel o tijeras contra la computadora, la persona que juegue tendrá que elegir una de las tres opciones (piedra, papel o tijeras), después se debe mostrar quien ganó la ronda, el juego termina hasta que alguien gana 2 de 3 rondas, 
+y por supuesto debe anunciarse al ganador."
+
+-------------------Código Fuente---------------------------------
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class PiedraPapeloTijeras {
+	public static void main (String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		Random randomNumbers = new Random();
+
+		int usuarioPuntos = 0;
+		int computadoraPuntos = 0;
+		int numeroDeRonda = 1;
+
+/*Bienvenida y explicación del juego*/
+	System.out.println("\n¡Bienvenid@ al juego de Piedra, Papel o Tijeras!");
+	System.out.println("\nPara jugar, elige una de las tres opciones posibles: Piedra, Papel o Tijeras.");
+	System.out.println("En respuesta, la computadora eligirá aleatoriamente una opción.");
+	System.out.println("\nTen en cuenta que:");
+	System.out.println("La Piedra aplasta las Tijeras (Gana Piedra)");
+	System.out.println("Las Tijeras cortan el Papel (Gana Tijeras)");
+	System.out.println("Y el Papel envuelve la Piedra (Gana Papel)");
+	System.out.println("En caso de que seleccionen la misma opción, se declara empate.");
+	System.out.println("\nEl jugador que gane 2 rondas será el ¡VENCEDOR!.");
+	System.out.println("¡Qué comience el juego!\n");
+
+/*Turno del jugador*/
+ 	while (usuarioPuntos < 2 && computadoraPuntos < 2) {
+ 		System.out.println("~~~ Ronda " + numeroDeRonda + " ~~~");
+ 		System.out.println("Elige una opción:");
+ 		System.out.println("1 : Piedra | 2 : Papel | 3 : Tijeras");
+
+ 		int eleccionUsuario;
+
+/*Evitar que el usuario ingrese texto no valido*/
+    try {
+    	eleccionUsuario = Integer.parseInt(scanner.nextLine());
+    } catch (NumberFormatException e) {
+    	System.out.println("Dato Inválido. Selecciona un número: 1, 2 o 3.\n");
+    	continue;
+    }
+
+    if (eleccionUsuario < 1 || eleccionUsuario > 3) {
+    	System.out.println("Número Inválido. Selecciona un número: 1, 2 o 3.\n");
+        continue;
+            }
+
+ /*Turno de la computadora*/
+
+	int eleccionComputadora = randomNumbers.nextInt(3) + 1;
+	String[] opciones = {"Piedra", "Papel", "Tijeras"};
+    String jugadaUsuario = opciones[eleccionUsuario - 1];
+    String jugadaComputadora = opciones[eleccionComputadora - 1];
+
+    System.out.println("Tú elegiste: " + jugadaUsuario);
+    System.out.println("La computadora eligió: " + jugadaComputadora);
+
+/*Resultados por ronda*/
+
+    if (eleccionUsuario == eleccionComputadora) {
+        System.out.println("¡Empate!\n");
+
+/*1 Piedra vence 3 Tijeras; 
+  2 Papel vence 1 Piedra;
+  3 Tijeras vence 2 Papel*/
+
+    } else if (
+    (eleccionUsuario == 1 && eleccionComputadora == 3) ||
+    (eleccionUsuario == 2 && eleccionComputadora == 1) ||  
+    (eleccionUsuario == 3 && eleccionComputadora == 2)    
+    ) {
+    	System.out.println("¡Ganaste!\n");
+    	usuarioPuntos++;
+    } else {
+    	System.out.println("La computadora gana esta ronda.\n");
+    	computadoraPuntos++;
+    }
+    	System.out.println("Marcador actual -> Tú: " + usuarioPuntos + " | Computadora: " + computadoraPuntos + "\n");
+        numeroDeRonda++;
+    }
+
+/*Fin del juego*/
+	if (usuarioPuntos == 2) {
+		System.out.println("¡Felicidades! ¡GANASTE EL JUEGO!");
+	} else {
+		System.out.println("Has perdido. ¡Suerte para la próxima!");
+    }
+
+        scanner.close();
+    }
+}
+
+
